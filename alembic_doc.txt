@@ -20,15 +20,17 @@ inside alembic/env.py do the following
 --------------------------------------
 
 * import MetaData	
-	from sqlalchemy import engine_from_config, pool, MetaData
+	from sqlalchemy import MetaData
 
 * import models (if it is in different path)
-	 from login_permission import models as login_permission_model
+    ex:-	 
+	from login_permission import models as login_permission_model
 
 * specify the target metadata 
+    ex:-
 	target_metadata = combine_metadata(login_permission_model.Base.metadata)
 
-* include conpare_type in offline function
+* include conpare_type in offline function(to update changes of fields in next migrations)
 	url=url, target_metadata=target_metadata, literal_binds=True,compare_type=True)
 
 * include conpare_type for onlinr function(inside context.configure)
