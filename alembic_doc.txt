@@ -1,0 +1,57 @@
+alembic migrations steps:-
+--------------------------
+
+* install alembic
+	$pip install alembic
+
+* initialize alembic 
+	$alembic init alembic
+
+* alembic folder should be in the following structure
+		app
+	├── alembic
+	│   ├── README
+	│   ├── env.py
+	│   ├── script.py.mako
+	│   └── versions
+	├── model.py
+
+inside alembic/env.py do the following
+--------------------------------------
+
+* import MetaData	
+	from sqlalchemy import engine_from_config, pool, MetaData
+
+* import models (if it is in different path)
+	 from login_permission import models as login_permission_model
+
+* specify the target metadata 
+	target_metadata = combine_metadata(login_permission_model.Base.metadata)
+
+* include conpare_type in offline function
+	url=url, target_metadata=target_metadata, literal_binds=True,compare_type=True)
+
+* include conpare_type for onlinr function(inside context.configure)
+	compare_type=True
+
+inside alembic.ini do the following
+-----------------------------------
+* inside alembic.ini specify database path
+	sqlalchemy.url = mysql://user_name:password@db_path:3306/db_name
+
+
+
+migrate
+--------
+
+* Create auto migrate template
+	$ alembic revision --autogenerate -m "initial"
+
+* execute migrations
+	head means the most recent change. It will migrate untill the most recent one.
+
+	head means the most recent change. It will migrate untill the most recent one.
+
+* show migrations
+	$ alembic history --verbose
+
