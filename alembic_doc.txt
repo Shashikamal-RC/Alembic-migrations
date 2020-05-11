@@ -49,6 +49,9 @@ migrate
 * Create auto migrate template
 	$ alembic revision --autogenerate -m "initial"
 
+* Update changes
+        $alembic upgrade head
+
 * execute migrations
 	head means the most recent change. It will migrate untill the most recent one.
 
